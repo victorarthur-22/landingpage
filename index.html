@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseX | Solução Inteligente para Gestão Comercial</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --primary: #2563eb;
+      --primary-2: #38bdf8;
+      --text: #e5eefc;
+      --muted: #94a3b8;
+      --card: rgba(255,255,255,0.08);
+      --white: #ffffff;
+      --success: #22c55e;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 24px 60px rgba(0,0,0,.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, var(--bg) 0%, #08101f 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: bold;
+      transition: .25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--white);
+      box-shadow: 0 16px 35px rgba(37, 99, 235, .35);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-outline {
+      border-color: var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 78px 0 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 280px;
+      height: 280px;
+      background: var(--primary);
+      top: -70px;
+      left: -80px;
+    }
+
+    .hero::after {
+      width: 320px;
+      height: 320px;
+      background: #06b6d4;
+      right: -70px;
+      bottom: 20px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 999px;
+      color: #bae6fd;
+      font-size: .92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      color: var(--muted);
+    }
+
+    .stats strong {
+      display: block;
+      color: var(--white);
+      font-size: 1.4rem;
+      margin-bottom: 2px;
+    }
+
+    .dashboard {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .dash-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .badge-online {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(34,197,94,.12);
+      color: #bbf7d0;
+      border: 1px solid rgba(34,197,94,.3);
+      font-size: .88rem;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .mini-card,
+    .feature-card,
+    .testimonial,
+    .pricing-card,
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+    }
+
+    .mini-card {
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      font-size: .96rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+
+    .mini-card strong {
+      font-size: 1.7rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .mini-card span {
+      color: #c7d2fe;
+      font-size: .92rem;
+    }
+
+    .chart {
+      padding: 18px;
+      min-height: 150px;
+    }
+
+    .bars {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      height: 110px;
+      margin-top: 16px;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 14px 14px 6px 6px;
+      background: linear-gradient(180deg, var(--primary-2), var(--primary));
+      opacity: .95;
+    }
+
+    section {
+      padding: 48px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .features-grid,
+    .testimonials-grid,
+    .pricing-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-card,
+    .testimonial,
+    .pricing-card {
+      padding: 24px;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(37,99,235,.25), rgba(56,189,248,.25));
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .feature-card h3,
+    .pricing-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p,
+    .testimonial p,
+    .pricing-card p,
+    .pricing-card li {
+      color: var(--muted);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonial strong {
+      display: block;
+      margin-top: 16px;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(56,189,248,.55);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(14, 165, 233, .16);
+    }
+
+    .price {
+      font-size: 2.3rem;
+      font-weight: bold;
+      margin: 14px 0;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin: 18px 0 24px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .cta-box {
+      padding: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      margin-bottom: 8px;
+    }
+
+    .cta-box p { color: var(--muted); }
+
+    footer {
+      padding: 26px 0 40px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .features-grid,
+      .testimonials-grid,
+      .pricing-grid,
+      .cta-box {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .cta-box {
+        text-align: center;
+      }
+
+      .cta-box .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 52px; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .stats { gap: 14px; }
+      .btn { width: 100%; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-badge">P</div>
+        <span>PulseX</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#beneficios">Benefícios</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#planos">Planos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a href="#contato" class="btn btn-outline">Solicitar demonstração</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">🚀 Plataforma de divulgação e conversão de produtos</div>
+          <h1>Uma landing page moderna para apresentar seu produto e vender mais.</h1>
+          <p>
+            A PulseX ajuda empresas a destacar benefícios, gerar autoridade e transformar visitantes em clientes com uma experiência visual profissional, responsiva e objetiva.
+          </p>
+          <div class="hero-actions">
+            <a href="#planos" class="btn btn-primary">Começar agora</a>
+            <a href="#beneficios" class="btn btn-outline">Ver funcionalidades</a>
+          </div>
+          <div class="stats">
+            <div>
+              <strong>+250%</strong>
+              <span>mais geração de leads</span>
+            </div>
+            <div>
+              <strong>24h</strong>
+              <span>para página entrar no ar</span>
+            </div>
+            <div>
+              <strong>98%</strong>
+              <span>de satisfação de clientes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard" aria-label="Painel ilustrativo do produto">
+          <div class="dash-top">
+            <div>
+              <h2 style="font-size:1.2rem; margin-bottom:4px;">Painel de desempenho</h2>
+              <p style="color: var(--muted); font-size:.95rem;">Resumo de resultados em tempo real</p>
+            </div>
+            <div class="badge-online">● Sistema online</div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="mini-card">
+              <h3>Visitantes</h3>
+              <strong>18.420</strong>
+              <span>+32% neste mês</span>
+            </div>
+            <div class="mini-card">
+              <h3>Conversões</h3>
+              <strong>1.284</strong>
+              <span>+18% em relação ao mês anterior</span>
+            </div>
+          </div>
+
+          <div class="chart mini-card">
+            <h3 style="font-weight:normal; color: var(--muted);">Evolução semanal</h3>
+            <div class="bars">
+              <div class="bar" style="height:45%"></div>
+              <div class="bar" style="height:62%"></div>
+              <div class="bar" style="height:58%"></div>
+              <div class="bar" style="height:82%"></div>
+              <div class="bar" style="height:74%"></div>
+              <div class="bar" style="height:95%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beneficios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Recursos pensados para destacar seu produto</h2>
+          <p>
+            Estrutura estratégica para apresentar benefícios, diferenciais competitivos e chamadas para ação que incentivam o contato imediato do cliente.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="icon">📣</div>
+            <h3>Apresentação impactante</h3>
+            <p>Seção principal com proposta de valor clara, visual profissional e destaque imediato para o produto.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">📈</div>
+            <h3>Foco em conversão</h3>
+            <p>Botões estratégicos, hierarquia visual bem definida e conteúdo objetivo voltado para gerar vendas.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">📱</div>
+            <h3>Layout responsivo</h3>
+            <p>Experiência adaptada para computador, tablet e celular, mantendo legibilidade e performance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="depoimentos">
+      <div class="container">
+        <div class="section-head">
+          <h2>O que nossos clientes dizem</h2>
+          <p>Uma presença digital forte transmite confiança e aumenta o interesse do público pelo seu produto.</p>
+        </div>
+        <div class="testimonials-grid">
+          <article class="testimonial">
+            <p>“Nossa taxa de contato aumentou logo na primeira semana. A página ficou moderna e muito fácil de entender.”</p>
+            <strong>Marina Costa</strong>
+            <span style="color: var(--muted);">Gestora Comercial</span>
+          </article>
+          <article class="testimonial">
+            <p>“Finalmente conseguimos apresentar o produto de forma profissional. Os clientes entenderam o valor rapidamente.”</p>
+            <strong>Renato Alves</strong>
+            <span style="color: var(--muted);">CEO de Startup</span>
+          </article>
+          <article class="testimonial">
+            <p>“O visual ficou excelente no celular e no computador. Isso trouxe mais credibilidade para a empresa.”</p>
+            <strong>Ana Beatriz</strong>
+            <span style="color: var(--muted);">Coordenadora de Marketing</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Escolha o plano ideal</h2>
+          <p>Opções flexíveis para empresas que precisam divulgar um produto com mais força no ambiente digital.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <h3>Essencial</h3>
+            <p>Para pequenos negócios</p>
+            <div class="price">R$ 79<span style="font-size:1rem; color: var(--muted);">/mês</span></div>
+            <ul>
+              <li>✔ Landing page responsiva</li>
+              <li>✔ Seções institucionais</li>
+              <li>✔ Botão de contato</li>
+            </ul>
+            <a href="#contato" class="btn btn-outline">Escolher plano</a>
+          </article>
+          <article class="pricing-card featured">
+            <h3>Profissional</h3>
+            <p>Para quem busca conversão</p>
+            <div class="price">R$ 149<span style="font-size:1rem; color: var(--muted);">/mês</span></div>
+            <ul>
+              <li>✔ Tudo do Essencial</li>
+              <li>✔ Seção de depoimentos</li>
+              <li>✔ Métricas ilustrativas</li>
+              <li>✔ Destaque visual premium</li>
+            </ul>
+            <a href="#contato" class="btn btn-primary">Plano recomendado</a>
+          </article>
+          <article class="pricing-card">
+            <h3>Enterprise</h3>
+            <p>Para empresas em expansão</p>
+            <div class="price">R$ 249<span style="font-size:1rem; color: var(--muted);">/mês</span></div>
+            <ul>
+              <li>✔ Layout personalizado</li>
+              <li>✔ CTA avançado</li>
+              <li>✔ Ajustes estratégicos</li>
+              <li>✔ Prioridade no suporte</li>
+            </ul>
+            <a href="#contato" class="btn btn-outline">Falar com especialista</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Pronto para divulgar seu produto com mais impacto?</h2>
+            <p>Solicite uma demonstração e descubra como uma landing page estratégica pode aumentar a visibilidade da sua empresa.</p>
+          </div>
+          <a href="mailto:contato@pulsex.com" class="btn btn-primary">Entrar em contato</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 PulseX. Landing page demonstrativa para divulgação de produto.
+    </div>
+  </footer>
+</body>
+</html>
